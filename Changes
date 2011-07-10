@@ -1,4 +1,7 @@
 Revision history for smartmatch
 
+0.02  2011-07-10
+      - Add a missing perl core function for < 5.14
+
 0.01  2011-07-08
       - Initial release

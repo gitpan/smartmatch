@@ -1,6 +1,6 @@
 package smartmatch;
 BEGIN {
-  $smartmatch::VERSION = '0.01'; # TRIAL
+  $smartmatch::VERSION = '0.02'; # TRIAL
 }
 use strict;
 use warnings;
@@ -52,7 +52,7 @@ smartmatch - pluggable smart matching backends
 
 =head1 VERSION
 
-version 0.01
+version 0.02
 
 =head1 SYNOPSIS
 
