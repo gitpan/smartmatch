@@ -3,24 +3,35 @@ abstract: 'pluggable smart matching backends'
 author:
   - 'Jesse Luehrs <doy at tozt dot net>'
 build_requires:
+  File::Find: 0
+  File::Temp: 0
+  List::MoreUtils: 0
   Test::More: 0.88
 configure_requires:
   B::Hooks::OP::Check: 0.14
   ExtUtils::Depends: 0
   ExtUtils::MakeMaker: 6.30
 dynamic_config: 0
-generated_by: 'Dist::Zilla version 4.200008, CPAN::Meta::Converter version 2.110440'
+generated_by: 'Dist::Zilla version 4.300020, CPAN::Meta::Converter version 2.120921'
 license: perl
 meta-spec:
   url: http://module-build.sourceforge.net/META-spec-v1.4.html
   version: 1.4
 name: smartmatch
 requires:
-  B::Hooks::OP::Check: 0.14
+  B::Hooks::OP::Check: 0
+  DynaLoader: 0
+  Module::Runtime: 0
+  Package::Stash: 0
+  parent: 0
   perl: 5.010
+  strict: 0
+  warnings: 0
 resources:
+  bugtracker: http://rt.cpan.org/Public/Dist/Display.html?Name=smartmatch
+  homepage: http://metacpan.org/release/smartmatch
   repository: git://github.com/doy/smartmatch.git
-version: 0.03
+version: 0.04
 x_Dist_Zilla:
   plugins:
     -
@@ -30,83 +41,87 @@ x_Dist_Zilla:
           phase: test
           type: requires
       name: '@Filter/TestMoreDoneTesting'
-      version: 4.200008
+      version: 4.300020
     -
       class: Dist::Zilla::Plugin::GatherDir
       name: '@Filter/GatherDir'
-      version: 4.200008
+      version: 4.300020
     -
       class: Dist::Zilla::Plugin::PruneCruft
       name: '@Filter/PruneCruft'
-      version: 4.200008
+      version: 4.300020
     -
       class: Dist::Zilla::Plugin::ManifestSkip
       name: '@Filter/ManifestSkip'
-      version: 4.200008
+      version: 4.300020
     -
       class: Dist::Zilla::Plugin::MetaYAML
       name: '@Filter/MetaYAML'
-      version: 4.200008
+      version: 4.300020
     -
       class: Dist::Zilla::Plugin::License
       name: '@Filter/License'
-      version: 4.200008
+      version: 4.300020
     -
       class: Dist::Zilla::Plugin::Readme
       name: '@Filter/Readme'
-      version: 4.200008
+      version: 4.300020
     -
-      class: Dist::Zilla::Plugin::ExtraTests
-      name: '@Filter/ExtraTests'
-      version: 4.200008
+      class: Dist::Zilla::Plugin::RunExtraTests
+      name: '@Filter/RunExtraTests'
+      version: 0.007
     -
       class: Dist::Zilla::Plugin::ExecDir
       name: '@Filter/ExecDir'
-      version: 4.200008
+      version: 4.300020
     -
       class: Dist::Zilla::Plugin::ShareDir
       name: '@Filter/ShareDir'
-      version: 4.200008
+      version: 4.300020
     -
       class: Dist::Zilla::Plugin::Manifest
       name: '@Filter/Manifest'
-      version: 4.200008
+      version: 4.300020
     -
       class: Dist::Zilla::Plugin::TestRelease
       name: '@Filter/TestRelease'
-      version: 4.200008
+      version: 4.300020
     -
       class: Dist::Zilla::Plugin::ConfirmRelease
       name: '@Filter/ConfirmRelease'
-      version: 4.200008
+      version: 4.300020
     -
       class: Dist::Zilla::Plugin::MetaConfig
       name: '@Filter/MetaConfig'
-      version: 4.200008
+      version: 4.300020
     -
       class: Dist::Zilla::Plugin::MetaJSON
       name: '@Filter/MetaJSON'
-      version: 4.200008
+      version: 4.300020
     -
       class: Dist::Zilla::Plugin::NextRelease
       name: '@Filter/NextRelease'
-      version: 4.200008
+      version: 4.300020
     -
       class: Dist::Zilla::Plugin::CheckChangesHasContent
       name: '@Filter/CheckChangesHasContent'
-      version: 0.003
+      version: 0.005
     -
       class: Dist::Zilla::Plugin::PkgVersion
       name: '@Filter/PkgVersion'
-      version: 4.200008
+      version: 4.300020
+    -
+      class: Dist::Zilla::Plugin::Authority
+      name: '@Filter/Authority'
+      version: 1.006
     -
       class: Dist::Zilla::Plugin::PodCoverageTests
       name: '@Filter/PodCoverageTests'
-      version: 4.200008
+      version: 4.300020
     -
       class: Dist::Zilla::Plugin::PodSyntaxTests
       name: '@Filter/PodSyntaxTests'
-      version: 4.200008
+      version: 4.300020
     -
       class: Dist::Zilla::Plugin::NoTabsTests
       name: '@Filter/NoTabsTests'
@@ -116,25 +131,33 @@ x_Dist_Zilla:
       name: '@Filter/EOLTests'
       version: 0.02
     -
-      class: Dist::Zilla::Plugin::CompileTests
-      name: '@Filter/CompileTests'
-      version: 1.110930
+      class: Dist::Zilla::Plugin::Test::Compile
+      name: '@Filter/Test::Compile'
+      version: 1.112820
     -
-      class: Dist::Zilla::Plugin::Repository
-      name: '@Filter/Repository'
-      version: 0.18
+      class: Dist::Zilla::Plugin::Metadata
+      name: '@Filter/Metadata'
+      version: 3.03
+    -
+      class: Dist::Zilla::Plugin::MetaResources
+      name: '@Filter/MetaResources'
+      version: 4.300020
     -
       class: Dist::Zilla::Plugin::Git::Check
       name: '@Filter/Git::Check'
-      version: 1.111590
+      version: 1.121010
+    -
+      class: Dist::Zilla::Plugin::Git::Commit
+      name: '@Filter/Git::Commit'
+      version: 1.121010
     -
       class: Dist::Zilla::Plugin::Git::Tag
       name: '@Filter/Git::Tag'
-      version: 1.111590
+      version: 1.121010
     -
       class: Dist::Zilla::Plugin::Git::NextVersion
       name: '@Filter/Git::NextVersion'
-      version: 1.111590
+      version: 1.121010
     -
       class: Dist::Zilla::Plugin::PodWeaver
       name: '@Filter/PodWeaver'
@@ -142,19 +165,15 @@ x_Dist_Zilla:
     -
       class: Dist::Zilla::Plugin::UploadToCPAN
       name: '@Filter/UploadToCPAN'
-      version: 4.200008
+      version: 4.300020
     -
       class: inc::MakeMaker
       name: '=inc::MakeMaker'
       version: ~
     -
-      class: Dist::Zilla::Plugin::Prereqs
-      config:
-        Dist::Zilla::Plugin::Prereqs:
-          phase: runtime
-          type: requires
-      name: Prereqs
-      version: 4.200008
+      class: Dist::Zilla::Plugin::AutoPrereqs
+      name: AutoPrereqs
+      version: 4.300020
     -
       class: Dist::Zilla::Plugin::Prereqs
       config:
@@ -162,33 +181,34 @@ x_Dist_Zilla:
           phase: configure
           type: requires
       name: ConfigureRequires
-      version: 4.200008
+      version: 4.300020
     -
       class: Dist::Zilla::Plugin::FinderCode
       name: ':InstallModules'
-      version: 4.200008
+      version: 4.300020
     -
       class: Dist::Zilla::Plugin::FinderCode
       name: ':IncModules'
-      version: 4.200008
+      version: 4.300020
     -
       class: Dist::Zilla::Plugin::FinderCode
       name: ':TestFiles'
-      version: 4.200008
+      version: 4.300020
     -
       class: Dist::Zilla::Plugin::FinderCode
       name: ':ExecFiles'
-      version: 4.200008
+      version: 4.300020
     -
       class: Dist::Zilla::Plugin::FinderCode
       name: ':ShareFiles'
-      version: 4.200008
+      version: 4.300020
     -
       class: Dist::Zilla::Plugin::FinderCode
       name: ':MainModule'
-      version: 4.200008
+      version: 4.300020
   zilla:
     class: Dist::Zilla::Dist::Builder
     config:
       is_trial: 1
-    version: 4.200008
+    version: 4.300020
+x_authority: cpan:DOY

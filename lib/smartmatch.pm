@@ -1,6 +1,9 @@
 package smartmatch;
 BEGIN {
-  $smartmatch::VERSION = '0.03'; # TRIAL
+  $smartmatch::AUTHORITY = 'cpan:DOY';
+}
+{
+  $smartmatch::VERSION = '0.04'; # TRIAL
 }
 use strict;
 use warnings;
@@ -9,6 +12,8 @@ use 5.010;
 
 use parent 'DynaLoader';
 use B::Hooks::OP::Check;
+use Module::Runtime 'use_package_optimistically';
+use Package::Stash;
 
 sub dl_load_flags { 0x01 }
 
@@ -22,22 +27,30 @@ __PACKAGE__->bootstrap(
 );
 
 
+my $anon = 1;
+
 sub import {
     my $package = shift;
-    my ($cb) = @_;
+    my ($engine) = @_;
 
-    if (!ref($cb)) {
-        my $engine = "smartmatch::engine::$cb";
-        eval "require $engine; 1"
-            or die "Couldn't load smartmatch engine $engine: $@";
-        $cb = $engine->can('match') unless ref($cb);
+    if (ref($engine)) {
+        my $cb = $engine;
+        $engine = '__ANON__::' . $anon++;
+        my $anon_stash = Package::Stash->new("smartmatch::engine::$engine");
+        $anon_stash->add_symbol('&match' => $cb);
+    }
+    else {
+        my $package = "smartmatch::engine::$engine";
+        use_package_optimistically($package);
+        die "$package does not implement a 'match' function"
+            unless $package->can('match');
     }
 
-    register($cb);
+    $^H{'smartmatch/engine'} = $engine;
 }
 
 sub unimport {
-    unregister();
+    delete $^H{'smartmatch/engine'};
 }
 
 
@@ -52,7 +65,7 @@ smartmatch - pluggable smart matching backends
 
 =head1 VERSION
 
-version 0.03
+version 0.04
 
 =head1 SYNOPSIS
 
@@ -85,11 +98,6 @@ right sides of the smart match operator, and should return the result.
 This module is lexically scoped, and you can call C<no smartmatch> to restore
 the core perl smart matching behavior.
 
-=for Pod::Coverage import
-unimport
-register
-unregister
-
 =head1 BUGS
 
 No known bugs.
@@ -100,19 +108,9 @@ L<http://rt.cpan.org/NoAuth/ReportBug.html?Queue=smartmatch>.
 
 =head1 SEE ALSO
 
-Please see those modules/websites for more information related to this module.
-
-=over 4
-
-=item *
-
 L<perlsyn/"Smart matching in detail">
 
-=item *
-
 L<smartmatch::engine::core>
-
-=back
 
 =head1 SUPPORT
 
@@ -142,13 +140,18 @@ L<http://search.cpan.org/dist/smartmatch>
 
 =back
 
+=for Pod::Coverage import
+unimport
+register
+unregister
+
 =head1 AUTHOR
 
 Jesse Luehrs <doy at tozt dot net>
 
 =head1 COPYRIGHT AND LICENSE
 
-This software is copyright (c) 2011 by Jesse Luehrs.
+This software is copyright (c) 2012 by Jesse Luehrs.
 
 This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.

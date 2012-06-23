@@ -15,9 +15,9 @@ t/00-compile.t
 t/basic.t
 t/lexical.t
 t/lib/lexical.pl
-t/release-eol.t
-t/release-no-tabs.t
-t/release-pod-coverage.t
-t/release-pod-syntax.t
 t/slices.t
-weaver.ini
+t/sugar.t
+xt/release/eol.t
+xt/release/no-tabs.t
+xt/release/pod-coverage.t
+xt/release/pod-syntax.t

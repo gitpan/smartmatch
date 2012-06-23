@@ -10,6 +10,9 @@ my %WriteMakefileArgs = (
   'ABSTRACT' => 'pluggable smart matching backends',
   'AUTHOR' => 'Jesse Luehrs <doy at tozt dot net>',
   'BUILD_REQUIRES' => {
+    'File::Find' => '0',
+    'File::Temp' => '0',
+    'List::MoreUtils' => '0',
     'Test::More' => '0.88'
   },
   'CONFIGURE_REQUIRES' => {
@@ -22,9 +25,15 @@ my %WriteMakefileArgs = (
   'LICENSE' => 'perl',
   'NAME' => 'smartmatch',
   'PREREQ_PM' => {
-    'B::Hooks::OP::Check' => '0.14'
+    'B::Hooks::OP::Check' => '0',
+    'DynaLoader' => '0',
+    'Module::Runtime' => '0',
+    'Package::Stash' => '0',
+    'parent' => '0',
+    'strict' => '0',
+    'warnings' => '0'
   },
-  'VERSION' => '0.03',
+  'VERSION' => '0.04',
   'test' => {
     'TESTS' => 't/*.t'
   }
