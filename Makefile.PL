@@ -13,7 +13,9 @@ my %WriteMakefileArgs = (
     'File::Find' => '0',
     'File::Temp' => '0',
     'List::MoreUtils' => '0',
-    'Test::More' => '0.88'
+    'Scalar::Util' => '0',
+    'Test::More' => '0.88',
+    'overload' => '0'
   },
   'CONFIGURE_REQUIRES' => {
     'B::Hooks::OP::Check' => '0.14',
@@ -33,7 +35,7 @@ my %WriteMakefileArgs = (
     'strict' => '0',
     'warnings' => '0'
   },
-  'VERSION' => '0.04',
+  'VERSION' => '0.05',
   'test' => {
     'TESTS' => 't/*.t'
   }

@@ -38,7 +38,9 @@
             "File::Find" : "0",
             "File::Temp" : "0",
             "List::MoreUtils" : "0",
-            "Test::More" : "0.88"
+            "Scalar::Util" : "0",
+            "Test::More" : "0.88",
+            "overload" : "0"
          }
       }
    },
@@ -55,7 +57,7 @@
          "web" : "https://github.com/doy/smartmatch"
       }
    },
-   "version" : "0.04",
+   "version" : "0.05",
    "x_Dist_Zilla" : {
       "plugins" : [
          {

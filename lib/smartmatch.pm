@@ -3,7 +3,7 @@ BEGIN {
   $smartmatch::AUTHORITY = 'cpan:DOY';
 }
 {
-  $smartmatch::VERSION = '0.04'; # TRIAL
+  $smartmatch::VERSION = '0.05'; # TRIAL
 }
 use strict;
 use warnings;
@@ -54,6 +54,27 @@ sub unimport {
 }
 
 
+sub callback_at_level {
+    my ($level) = @_;
+    $level++;
+    my $hh = (caller($level))[10];
+    my $engine = $hh ? $hh->{'smartmatch/engine'} : undef;
+
+    my $recurse;
+    if ($engine) {
+        $recurse = eval <<"RECURSE";
+            use smartmatch '$engine';
+            sub { \$_[0] ~~ \$_[1] }
+RECURSE
+    }
+    else {
+        $recurse = sub { $_[0] ~~ $_[1] };
+    }
+
+    return $recurse;
+}
+
+
 1;
 
 __END__
@@ -65,7 +86,7 @@ smartmatch - pluggable smart matching backends
 
 =head1 VERSION
 
-version 0.04
+version 0.05
 
 =head1 SYNOPSIS
 
@@ -97,6 +118,13 @@ right sides of the smart match operator, and should return the result.
 
 This module is lexically scoped, and you can call C<no smartmatch> to restore
 the core perl smart matching behavior.
+
+=head1 FUNCTIONS
+
+=head2 callback_at_level($level)
+
+Returns a coderef which will call smartmatching on its two arguments, with the
+smartmatch implementation used at caller level C<$level>.
 
 =head1 BUGS
 

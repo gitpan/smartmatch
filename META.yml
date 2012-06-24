@@ -6,7 +6,9 @@ build_requires:
   File::Find: 0
   File::Temp: 0
   List::MoreUtils: 0
+  Scalar::Util: 0
   Test::More: 0.88
+  overload: 0
 configure_requires:
   B::Hooks::OP::Check: 0.14
   ExtUtils::Depends: 0
@@ -31,7 +33,7 @@ resources:
   bugtracker: http://rt.cpan.org/Public/Dist/Display.html?Name=smartmatch
   homepage: http://metacpan.org/release/smartmatch
   repository: git://github.com/doy/smartmatch.git
-version: 0.04
+version: 0.05
 x_Dist_Zilla:
   plugins:
     -
